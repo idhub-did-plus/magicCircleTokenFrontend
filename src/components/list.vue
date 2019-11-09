@@ -4,10 +4,12 @@
             <table>
                 <tr>
                     <th>Token Name</th>
+                    <th>Symbol</th>
                     <th>Token Address</th>
                 </tr>
                 <tr v-for="item in tokenList" :key="item.id">
                     <td><a @click="toDetail(item.address)">{{item.name}}</a></td>
+                    <td>{{item.symbol}}</td>
                     <td>{{item.address}}</td>
                 </tr>
             </table>
@@ -60,32 +62,44 @@ export default {
             tokenList:[
                 {
                     id:1,
-                    name:"Tether USD (USDT)",
-                    address:"0xdac17f958d2ee523a2206206994597c13d831ec7"
+                    name:"Demo_IdentiyHubSecurityToken",
+                    symbol:"DIDH_ST",
+                    address:"0x189c398be0d95defeec71afdb725ba190069bbcb"
                 },
                 {
                     id:2,
-                    name:"BNB (BNB)",
-                    address:"0xB8c77482e45F1F44dE1745F52C74426C631bDD52"
+                    name:"Demo_MagicCircleSecurityToken  ",
+                    symbol:"DMC_ST ",
+                    address:"0xf7f9bb90fe43886a1b459071ebadd3a625b4486c"
                 },
                 {
                     id:3,
-                    name:"Bitfinex LEO Token (LEO)",
-                    address:"0x2af5d2ad76741191d15dfe7bf6ac92d4bd912ca3"
+                    name:"Demo_Apple,Inc.SecurityToken",
+                    symbol:"DAAPL_ST",
+                    address:"0xfb62598385eb545ba258e7f19a0dcf2dffca65e8"
                 },
                 {
                     id:4,
-                    name:"HuobiToken (HT)",
-                    address:"0x6f259637dcd74c767781e37bc6133cd6a68aa161"
+                    name:"Demo_Alphabet,Inc.SecurityToken",
+                    symbol:"DGOOG_ST",
+                    address:"0xae624cf3239a21deb8deb4e7ed5f9db82052912a"
                 },{
                     id:5,
-                    name:"ChainLink Token (LINK)",
-                    address:"0x514910771af9ca656af840dff83e8264ecf986ca"
+                    name:"Demo_AmazonSecurityToken",
+                    symbol:"DAMZN_ST",
+                    address:"0xe82016723aff3b29a6362af88b7644af83623d6f"
                 },
                 {
                     id:6,
-                    name:"Maker (MKR)",
-                    address:"0x9f8f72aa9304c8b593d555f12ef6589cc3a579a2"
+                    name:"Demo_Facebook,Inc.SecurityToken",
+                    symbol:"DFB_ST",
+                    address:"0x1cda98775f075cbd6e287fc76ab469b18e45bfb0"
+                },
+                {
+                    id:7,
+                    name:"Demo_AlibabaGroupHoldingLtdST",
+                    symbol:"DBABA_ST",
+                    address:"0xf63155093e63886b8616ee5a827f18fe9a47c722"
                 }
             ]
         }

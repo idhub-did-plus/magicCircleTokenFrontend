@@ -1234,47 +1234,80 @@ export default {
         var MyContract = web3.eth.contract(abiArray);
         // 使用合约地址实例化合约
         var ERC1400Contract = MyContract.at(this.address);
+        
         //获取token name
-        var p1 = ERC1400Contract.name.call((error,result)=>{
-            if(!error){
-                this.name = result;
-            }else{
-                this.n = true;
-                console.log(error);
-            }
+        var p1 = new Promise((resolve,reject)=>{
+            ERC1400Contract.name.call((error,result)=>{
+                if(!error){
+                    this.name = result;
+                    resolve();
+                }else{
+                    this.n = true;
+                    reject("p1失败");
+                }
+            })
         })
         //获取symbol
-        var p2 = ERC1400Contract.symbol.call((error,result)=>{
-            if(!error){
-                this.symbol = result;
-            }else{
-                console.log(error);
-                this.s = true;
-            }
-        })
+        var p2 = new Promise((resolve, reject)=>{
+            ERC1400Contract.symbol.call((error,result)=>{
+                if(!error){
+                    this.symbol = result;
+                    resolve();
+                }else{
+                    this.s = true;
+                    reject("p2失败");
+                }
+            })
+        })
         //获取totalSupply
-        var p3 = ERC1400Contract.totalSupply.call((error,result)=>{
-            if(!error){
-                var str = String(result.c[0]);
-                this.totalSupply = str.substring(0,str.length-3);
-            }else{
-                console.log(error)
-            }
-        })
+         var p3 = new Promise((resolve, reject)=>{
+            ERC1400Contract.totalSupply.call((error,result)=>{
+                if(!error){
+                    var str = String(result.c[0]);
+                    this.totalSupply = str.substring(0,str.length-3);
+                    resolve();
+                }else{
+                    console.log(error)
+                    reject();
+                }
+            })
+        })
         //获取controllers
-        var p4 = ERC1400Contract.controllers.call((error,result)=>{
-            if(!error){
-                this.controllers = result;
-            }else{
-                console.log(error)
-            }
+        var p4 = new Promise((resolve,reject)=>{
+            ERC1400Contract.controllers.call((error,result)=>{
+                if(!error){
+                    this.controllers = result;
+                    resolve();
+                }else{
+                    console.log(error);
+                    reject();
+                }
+            })
         })
         //获取totalPartitions
-        var p5 = ERC1400Contract.totalPartitions.call((error,result)=>{
-            if(!error){
-                this.partitions = result;
-            }else{
-                console.log(error)
+        var p5 = new Promise((resolve,reject)=>{
+            ERC1400Contract.totalPartitions.call((error,result)=>{
+                if(!error){
+                    this.partitions = result;
+                    resolve();
+                }else{
+                    console.log(error);
+                    reject();
+                }
+            })
+        })
+
+        Promise.all([p1,p2,p3,p4,p5]).then((result)=>{
+            //Promise对象全部调用成功，全都触发resolve()
+        }).catch((error)=>{
+            //Promise对象发生reject()的情况
+            if(this.controllers.length==0,this.partitions.length==0){
+                //暂定p1和p2中任意一个报错时，都认为地址不是1400合约地址
+                //此处暂定，还需要考虑若p1、p2是ERC1400合约地址，但所查字段不存暂时，是否会触发reject()
+                //调研web3关于partitions的返回值，返回空值还是报错的情况
+                if(this.n||this.s){
+                    // alert("此地址不是ERC1400合约地址");
+                }
             }
         })
     },
